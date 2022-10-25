@@ -223,7 +223,7 @@ static void vSubCommand_SetConfig( ConsoleIO_t * pxCIO,
                                    uint32_t ulArgc,
                                    char * ppcArgv[] )
 {
-    const char * pcKey = ppcArgv[ 2 ];
+    const char * pcKey = 3 > ulArgc ? NULL : ppcArgv[ 2 ];
 
     const char * pcValue = "";
 
@@ -352,9 +352,13 @@ static void vSubCommand_SetConfig( ConsoleIO_t * pxCIO,
             pxCIO->write( pcCliScratchBuffer, ( size_t ) lCharsPrinted );
         }
     }
+    else if( 3 > ulArgc )
+    {
+        pxCIO->print( "Error: arguments: Not enough arguments to 'set'.\r\n" );
+    }
     else
     {
-        pxCIO->print( "An unknown error occurred." );
+        pxCIO->print( "An unknown error occurred.\r\n" );
     }
 }
 
